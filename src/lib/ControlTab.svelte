@@ -1,5 +1,5 @@
 <script lang="ts">
-  import _ from "lodash";
+  import _, { endsWith } from "lodash";
   import { getRandomColor } from "../utils";
 
   export let percent: number;
@@ -99,8 +99,10 @@
                 line.controlPoints = [
                   ...line.controlPoints,
                   {
-                    x: _.random(0, 144),
-                    y: _.random(0, 144),
+                    x: line.endPoint.x,
+                    y: line.endPoint.y,
+                    actionType: "NULL",
+                    action: "NULL"
                   },
                 ];
               }}
@@ -211,9 +213,16 @@
         </div>
         {#each line.controlPoints as point, idx1}
           <div class="flex flex-col justify-start items-start">
-            <div class="font-light">Control Point {idx1 + 1}:</div>
+            <div class="font-light">Action Point {idx1 + 1}:</div>
             <div class="flex flex-row justify-start items-center gap-2">
-              <div class="font-extralight">X:</div>
+              <select
+                bind:value={point.actionType} 
+                class=" rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28 text-sm"
+              >
+                <option value="primitive">Primitive</option>
+                <option value="compound">Compound</option>
+              </select>
+              <!-- <div class="font-extralight">X:</div>
               <input
                 class="pl-1.5 rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28"
                 step="0.1"
@@ -230,6 +239,12 @@
                 bind:value={point.y}
                 min="0"
                 max="144"
+              /> -->
+              <div class="font-extralight">Action:</div>
+              <input
+                class="pl-1.5 rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28"
+                type="text"
+                bind:value={point.action}
               />
               <button
                 title="Remove Control Point"

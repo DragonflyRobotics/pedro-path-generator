@@ -1,3 +1,3 @@
-# Pedro Path Generator
+# Roadrunner Path Generator
 
-by #16166 WATT's UP
+by #16166 WATT's UP AND #26300 Anomaly

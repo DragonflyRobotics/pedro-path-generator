@@ -47,7 +47,7 @@
       public final class Auto_0_6 extends LinearOpMode {
         @Override
         public void runOpMode() throws InterruptedException {
-        Pose2d beginPose = new Pose2d(${startPoint.x.toFixed(3)}, ${startPoint.y.toFixed(3)}, Math.toRadians(
+        Pose2d beginPose = new Pose2d(${(startPoint.x-72).toFixed(3)}, ${(startPoint.y-72).toFixed(3)}, Math.toRadians(
           ${
           lines[0].endPoint.heading === "constant"
           ? lines[0].endPoint.degrees
@@ -69,11 +69,16 @@
           ${lines
             .map(
               (line, idx) => `
-              .strafeToLinearHeading(new Vector2d(${line.endPoint.x}, ${line.endPoint.y}), Math.toRadians(${line.endPoint.endDeg}))  // Line ${idx + 1}
-                
+              // Line ${idx + 1}
+              .strafeToLinearHeading(new Vector2d(${line.endPoint.x-72}, ${line.endPoint.y-72}), Math.toRadians(${line.endPoint.endDeg}))  
+              ${line.controlPoints.map(
+                (point, idx) => `
+                .stopAndAdd(${point.actionType=="primitive" ? "compoundActions.primitives." + point.action + "()" : "compoundActions." + point.action + "()"})
+                `
+              ).join("")}
             `
             )
-            .join("\n")};
+            .join("\n")});
       }
     }
     `;
@@ -104,9 +109,9 @@
 >
   <div class="flex flex-row justify-start items-center gap-2">
     <div class="font-semibold flex flex-col justify-start items-start">
-      <div>Pedro Path Generator</div>
+      <div>Roadrunner Path Generator</div>
       <div class="text-xs font-extralight flex flex-row gap-1">
-        by <p class="text-orange-500">#16166 WATT's UP</p>
+        by <p class="text-orange-500">#16166 WATT's UP AND #26300 Anomaly</p>
       </div>
     </div>
     <a
