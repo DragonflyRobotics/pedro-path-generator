@@ -69,7 +69,7 @@
           ${lines
             .map(
               (line, idx) => `
-              .strafeToLinearHeading(new Vector2d(${line.endPoint.}  // Line ${idx + 1}
+              .strafeToLinearHeading(new Vector2d(${line.endPoint.x}, ${line.endPoint.y}), Math.toRadians(${line.endPoint.endDeg}))  // Line ${idx + 1}
                 
             `
             )
