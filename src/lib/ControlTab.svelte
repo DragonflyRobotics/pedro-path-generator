@@ -102,7 +102,8 @@
                     x: line.endPoint.x,
                     y: line.endPoint.y,
                     actionType: "NULL",
-                    action: "NULL"
+                    action: "NULL",
+                    otherArg: "NULL"
                   },
                 ];
               }}
@@ -222,6 +223,8 @@
               >
                 <option value="primitive">Primitive</option>
                 <option value="compound">Compound</option>
+                <option value="waitSeconds">Wait Seconds</option>
+                <option value="afterTime">After Time</option>
               </select>
               <!-- <div class="font-extralight">X:</div>
               <input
@@ -241,6 +244,14 @@
                 min="0"
                 max="144"
               /> -->
+              {#if point.actionType == "afterTime"}
+              <div class="font-extralight">Arg:</div>
+              <input
+                class="pl-1.5 rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28"
+                type="text"
+                bind:value={point.otherArg}
+              />
+              {/if}
               <div class="font-extralight">Action:</div>
               <input
                 class="pl-1.5 rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28"

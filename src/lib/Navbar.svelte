@@ -73,7 +73,12 @@
               .strafeToLinearHeading(new Vector2d(${(line.endPoint.x-72).toFixed(3)}, ${(line.endPoint.y-72).toFixed(3)}), Math.toRadians(${line.endPoint.endDeg}))  
               ${line.controlPoints.map(
                 (point, idx) => `
-                .stopAndAdd(${point.actionType=="primitive" ? "compoundActions.primitives." + point.action + "()" : "compoundActions." + point.action + "()"})
+                ${
+                  point.actionType=="waitSeconds" ? ".waitSeconds(" + point.action + ")" :
+                  point.actionType=="afterTime" ? ".afterTime(" + point.otherArg + ", " + `${point.actionType=="primitive" ? "compoundActions.primitives." + point.action + "()" : "compoundActions." + point.action + "()"})` :
+                  `.stopAndAdd(${point.actionType=="primitive" ? "compoundActions.primitives." + point.action + "()" : "compoundActions." + point.action + "()"})`
+                }
+                
                 `
               ).join("")}
             `

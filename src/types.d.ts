@@ -31,6 +31,7 @@ type Point = BasePoint &
 type ControlPoint = BasePoint & {
   actionType: String;
   action: String;
+  otherArg: String;
 };
 
 
