@@ -92,9 +92,9 @@
               style={`background: ${line.color}`}
             />
           </div>
-          <div class="flex flex-row justify-end items-center gap-1">
+          <div class="flex flex-row justify-end items-center gap-1 text-green-500">
             <button
-              title="Add Control Point"
+              title="Add Action Point"
               on:click={() => {
                 line.controlPoints = [
                   ...line.controlPoints,
@@ -107,6 +107,7 @@
                 ];
               }}
             >
+              <p>Action Point</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

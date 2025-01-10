@@ -70,7 +70,7 @@
             .map(
               (line, idx) => `
               // Line ${idx + 1}
-              .strafeToLinearHeading(new Vector2d(${line.endPoint.x-72}, ${line.endPoint.y-72}), Math.toRadians(${line.endPoint.endDeg}))  
+              .strafeToLinearHeading(new Vector2d(${(line.endPoint.x-72).toFixed(3)}, ${(line.endPoint.y-72).toFixed(3)}), Math.toRadians(${line.endPoint.endDeg}))  
               ${line.controlPoints.map(
                 (point, idx) => `
                 .stopAndAdd(${point.actionType=="primitive" ? "compoundActions.primitives." + point.action + "()" : "compoundActions." + point.action + "()"})
@@ -118,7 +118,7 @@
       target="_blank"
       rel="norefferer"
       title="GitHub Repo"
-      href="https://github.com/scama01/pedro-path-generator"
+      href="https://github.com/DragonflyRobotics/pedro-path-generator"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
