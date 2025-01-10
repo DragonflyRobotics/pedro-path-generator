@@ -43,36 +43,37 @@
     };
 
     let file = `
-    public class GeneratedPath {
-      public GeneratedPath() {
-        PathBuilder builder = new PathBuilder();
-
-        builder${lines
-          .map(
-            (line, idx) => `.addPath(  // Line ${idx + 1}
-              ${line.controlPoints.length === 0 ? `new BezierLine` : `new BezierCurve`}(
-                ${
-                  idx === 0
-                    ? `new Point(${startPoint.x.toFixed(3)}, ${startPoint.y.toFixed(3)}, Point.CARTESIAN),`
-                    : `new Point(${lines[idx - 1].endPoint.x.toFixed(3)}, ${lines[idx - 1].endPoint.y.toFixed(3)}, Point.CARTESIAN),`
-                }
-                ${
-                  line.controlPoints.length > 0
-                    ? `${line.controlPoints
-                        .map(
-                          (point) =>
-                            `new Point(${point.x.toFixed(3)}, ${point.y.toFixed(3)}, Point.CARTESIAN)`
-                        )
-                        .join(",\n")},`
-                    : ""
-                }
-                new Point(${line.endPoint.x.toFixed(3)}, ${line.endPoint.y.toFixed(3)}, Point.CARTESIAN)
-              )
-            ).${headingTypeToFunctionName[line.endPoint.heading]}(${line.endPoint.heading === "constant" ? `Math.toRadians(${line.endPoint.degrees})` : line.endPoint.heading === "linear" ? `Math.toRadians(${line.endPoint.startDeg}), Math.toRadians(${line.endPoint.endDeg})` : ""})
-            ${line.endPoint.reverse ? ".setReversed(true)" : ""}
-          `
-          )
-          .join("\n")};
+      @Autonomous(name = "Auto_0_6_ex")
+      public final class Auto_0_6 extends LinearOpMode {
+        @Override
+        public void runOpMode() throws InterruptedException {
+        Pose2d beginPose = new Pose2d(${startPoint.x.toFixed(3)}, ${startPoint.y.toFixed(3)}, Math.toRadians(
+          ${
+          lines[0].endPoint.heading === "constant"
+          ? lines[0].endPoint.degrees
+            : lines[0].endPoint.heading === "linear"
+            ? lines[0].endPoint.startDeg
+            : "NaN"
+          }
+        ));
+        SparkFunOTOSDrive drive = new SparkFunOTOSDrive(hardwareMap, beginPose);
+        CompoundActions compoundActions = new CompoundActions(hardwareMap, true);
+        while (!isStopRequested() && !opModeIsActive()) {
+          telemetry.addData("Opmode not active", true);
+          telemetry.update();
+        }
+        waitForStart();
+        if (isStopRequested()) return;
+        Actions.runBlocking(
+          drive.actionBuilder(beginPose, 22)
+          ${lines
+            .map(
+              (line, idx) => `
+              .strafeToLinearHeading(new Vector2d(${line.endPoint.}  // Line ${idx + 1}
+                
+            `
+            )
+            .join("\n")};
       }
     }
     `;
@@ -87,6 +88,7 @@
       })
       .catch((e) => {
         console.error(e);
+        exportedCode = file;
       });
 
     dialogOpen = true;

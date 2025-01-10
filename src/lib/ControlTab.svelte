@@ -169,12 +169,12 @@
             />
 
             <select
-              bind:value={line.endPoint.heading}
+              bind:value={line.endPoint.heading} 
               class=" rounded-md bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-700 border-[0.5px] focus:outline-none w-28 text-sm"
             >
-              <option value="constant">Constant</option>
+              <!-- <option value="constant">Constant</option> -->
               <option value="linear">Linear</option>
-              <option value="tangential">Tangential</option>
+              <!-- <option value="tangential">Tangential</option> -->
             </select>
 
             {#if line.endPoint.heading === "linear"}
