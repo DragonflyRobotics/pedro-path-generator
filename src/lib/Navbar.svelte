@@ -47,7 +47,7 @@
       public final class Auto_0_6 extends LinearOpMode {
         @Override
         public void runOpMode() throws InterruptedException {
-        Pose2d beginPose = new Pose2d(${(startPoint.x-72).toFixed(3)}, ${(startPoint.y-72).toFixed(3)}, Math.toRadians(
+        Pose2d beginPose = new Pose2d(${(startPoint.y-72).toFixed(3)}, ${(72-startPoint.x).toFixed(3)}, Math.toRadians(
           ${
           lines[0].endPoint.heading === "constant"
           ? lines[0].endPoint.degrees
@@ -70,7 +70,7 @@
             .map(
               (line, idx) => `
               // Line ${idx + 1}
-              .strafeToLinearHeading(new Vector2d(${(line.endPoint.x-72).toFixed(3)}, ${(line.endPoint.y-72).toFixed(3)}), Math.toRadians(${line.endPoint.endDeg}))  
+              .strafeToLinearHeading(new Vector2d(${(line.endPoint.y-72).toFixed(3)}, ${(72-line.endPoint.x).toFixed(3)}), Math.toRadians(${line.endPoint.endDeg}))  
               ${line.controlPoints.map(
                 (point, idx) => `
                 ${
